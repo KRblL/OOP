@@ -1,6 +1,6 @@
 #include "Controller.hpp"
 
-Controller::Controller(Player& ref_player, Field& ref_field):player{ref_player}, field{ref_field}, coordinates{field.getStart()} {}
+Controller::Controller(Player& ref_player, Field& ref_field):player{ref_player}, field{ref_field}, coordinates{field.getEntry()} {}
 
 void Controller::setCoordinates(int x, int y)
 {

@@ -6,7 +6,7 @@
 
 
 #define DEF_SIZE 10
-#define DEF_START 0 
+#define DEF_ENTRY 0 
 #define MIN_SIZE 2
 #define MAX_SIZE 100
 
@@ -14,8 +14,8 @@ class Field
 {
     Cell** cell_arr;
     std::pair <int, int> size;
-    std::pair <int, int> start;
-    std::pair <int, int> finish;
+    std::pair <int, int> entry;
+    std::pair <int, int> exit;
 
     bool checkSize(int width, int height);
 
@@ -25,13 +25,13 @@ public:
     
     std::pair<int, int> getSize();
 
-    std::pair<int, int> getStart();
+    std::pair<int, int> getEntry();
 
-    std::pair<int, int> getFinish();
+    std::pair<int, int> getExit();
 
-    void setStart(int x_start, int y_start);
+    void setEntry(int x_start, int y_start);
 
-    void setFinish(int x_finish, int y_finish);
+    void setExit(int x_finish, int y_finish);
 
     const Cell& getCell(int x = 0, int y = 0) const;
 

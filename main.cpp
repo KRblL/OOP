@@ -40,12 +40,12 @@ int main()
     //Controller
     Player player;
     Field field(10, 10);
-    field.setStart(7, 7);
+    field.setEntry(7, 7);
     Controller controller(player, field);
     std::pair <int, int> field_size = field.getSize();
-    std::pair <int, int> exit = field.getFinish();
+    std::pair <int, int> exit = field.getExit();
    // field.setStart(5, 5);
-    std::pair <int, int> entry = field.getStart();
+    std::pair <int, int> entry = field.getEntry();
     field.setPassability(6, 7, 0);
     std::cout << field.getCell(5, 6).getPassability() << '\n';
     std::cout << "size: " << field_size.first << '\t' << field_size.second << '\n';
