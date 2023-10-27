@@ -1,10 +1,11 @@
 #ifndef CONTROLLER
 #define CONTROLLER
 
-#include "../Player/Player.hpp"
-#include "../Field/Field.hpp"
+#include "Direction.hpp"
+#include <iostream>
 
-enum class Direction {up, down, left, right};
+class Player;
+class Field;
 
 class Controller
 {  
@@ -15,17 +16,21 @@ class Controller
 public:
     Controller(Player& ref_player, Field& ref_field);
 
-    void setCoordinates(int x = 0, int y = 0);
-
     std::pair<int, int> getCoordinates();
 
-    void changeCoordinates(int delta_x = 0, int delta_y = 0);
-
-    void changeHealth(int delta_hp = 0);
-
-    void changeScore(int delta_pts = 0);
+    Player& getPlayer();
+    
+    Field& getField();
 
     void move(Direction step);
+
+    void setCoordinates(int x = 0, int y = 0);
+
+    //void changeCoordinates(int delta_x = 0, int delta_y = 0);
+
+    //void changeHealth(int delta_hp = 0);
+
+    //void changeScore(int delta_pts = 0);
 };
 
 #endif

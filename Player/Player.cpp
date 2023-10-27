@@ -1,17 +1,15 @@
 #include "Player.hpp"
         
-bool Player::checkOption(int value)
+int Player::checkOption(int value)
 {
-    return value >= MIN_VAL && value <= MAX_VAL;
+    if (value > MAX_VAL)
+        return 1;
+    else if (value < MIN_VAL)
+        return -1;
+    return 0;
 }
 
-Player::Player(int hp, int points)
-{
-    if (!checkOption(hp) || !checkOption(points))           
-        throw std::invalid_argument("Incorrect arguments!\n");
-    health = hp;
-    score = points;
-}
+Player::Player():health{DEF_HEALTH}, score{DEF_SCORE} {}
 
 int Player::getHealth()
 {
@@ -25,14 +23,27 @@ int Player::getScore()
 
 void Player::setHealth(int value)
 {
-    if (!checkOption(value))
-        throw std::invalid_argument("Health should be from 0 to 100!\n");
-    health = value;
+    int flag = checkOption(value);
+    if (flag == 1)
+        health = MAX_VAL;
+    else if (flag == -1)
+        health = MIN_VAL;
+    else
+        health = value;
 }
 
 void Player::setScore(int value)
 {
-    if (!checkOption(value))
-        throw std::invalid_argument("Score should be from 0 to 100!\n");
-    score = value;
+    int flag = checkOption(value);
+    if (flag == 1)
+        score = MAX_VAL;
+    else if (flag == -1)
+        score = MIN_VAL;
+    else
+        score = value;
+}
+
+bool Player::isDead()
+{
+    return health <= MIN_VAL;
 }

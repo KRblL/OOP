@@ -12,18 +12,20 @@ class Player
     int health;
     int score;     // случайное кол-во очков случайным образом разбросаны по полю, игрок получает очки, перейдя в клетку; max 100 очков отражает полноту прохождения уровня
     
-    bool checkOption(int value); // функция проверки валидности полей здоровья или очков
+    int checkOption(int value); // функция проверки валидности полей здоровья или очков
 
 public:
-    Player(int hp = DEF_HEALTH, int points = DEF_SCORE);
+    Player();
 
     int getHealth();
 
     int getScore();
 
-    void setHealth(int value = MIN_VAL);
+    void setHealth(int value = DEF_HEALTH);
 
-    void setScore(int value = MIN_VAL);
+    void setScore(int value = DEF_SCORE);
+
+    bool isDead();
 };
 
 #endif

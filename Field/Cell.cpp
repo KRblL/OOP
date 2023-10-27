@@ -1,7 +1,7 @@
 #include "Cell.hpp"
 
 
-Cell::Cell(bool passable , IEvent *event):passability(passable) , event{event}{}; 
+Cell::Cell(bool passable , IEvent* event):passability(passable), event{event}{} 
 
 Cell::Cell(const Cell &other):passability{other.passability}, event{other.event ? other.event->clone() : nullptr} {}      
 
@@ -38,6 +38,11 @@ bool Cell::getPassability() const
 void Cell::setPassability(bool value)
 {
     passability = value;
+}
+
+IEvent* Cell::getEvent() const
+{
+    return event;
 }
 
 Cell::~Cell()

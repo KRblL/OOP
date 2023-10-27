@@ -4,7 +4,6 @@
 #include "Cell.hpp"
 #include <iostream>
 
-
 #define DEF_SIZE 10
 #define DEF_ENTRY 0 
 #define MIN_SIZE 2
@@ -22,6 +21,14 @@ class Field
 
 public:
     Field(int width = DEF_SIZE, int height = DEF_SIZE);      // may be create default constructor without arguments
+
+    Field(const Field &other);  
+
+    Field& operator = (const Field &other);
+
+    Field(Field &&other);
+
+    Field& operator = (Field &&other);
     
     std::pair<int, int> getSize();
 
@@ -33,13 +40,17 @@ public:
 
     void setExit(int x_finish, int y_finish);
 
-    const Cell& getCell(int x = 0, int y = 0) const;
+    Cell& getCell(int x = 0, int y = 0) const;
 
     void setPassability(int x, int y, bool value = true);
+
+    void setAreaPassability(int down_left_x, int down_left_y, int right_up_x, int right_up_y, bool value = true);
 
     bool checkCoordinates(int x, int y) const;
     
     ~Field();
+
+    void FieldView();
 };
 
 #endif
