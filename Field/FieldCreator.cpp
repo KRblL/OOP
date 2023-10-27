@@ -29,7 +29,6 @@ Field FieldCreator::createLevel_2()
     field.setAreaPassability(4, 4, 9, 7, false);
     field.getCell(5, 9) = Cell(true, new DamageEvent(99));
     for (size_t x = 0; x < 3; x++) {
-        std::cout << x << '\n';
         field.getCell(x, 7) = Cell(true, new TeleportEvent(5, 9));
         field.getCell(x, 4) = Cell(true, new DamageEvent(1));
     }

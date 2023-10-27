@@ -3,7 +3,7 @@
 #include "../Field/Cell.hpp"
 #include "../Field/Field.hpp"
 
-TeleportEvent::TeleportEvent(int x, int y):coordinates({x, y}) {}
+TeleportEvent::TeleportEvent(int x, int y):coordinates{x, y} {}
 
 void TeleportEvent::activationEvent(Controller& controller)
 {
@@ -11,7 +11,6 @@ void TeleportEvent::activationEvent(Controller& controller)
         ++use_flag;
         controller.setCoordinates(coordinates.first, coordinates.second);
     }
-
 }
 
 TeleportEvent* TeleportEvent::clone()

@@ -66,7 +66,7 @@ int main()
     std::cout << "Score: " << player.getScore() << "\n\n";*/
 
     //checkTeleportEvent
-    Player player;
+    /*Player player;
     Field field(5, 5);
     field.getCell(0, 1) = Cell(true, new TeleportEvent(3, 3));
     field.getCell(3, 3) = Cell(true, new TeleportEvent(0, 3));
@@ -74,13 +74,13 @@ int main()
     Controller controller(player, field);
     std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << "\n\n";
     controller.move(Direction::up);
-    std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << "\n\n";
+    std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << "\n\n";*/
 
 
 
 
     // Level_1
-    /* Player player;
+    /*Player player;
     FieldCreator field_creator;
     Field field = field_creator.createLevel_1();
     //field.FieldView();
@@ -126,8 +126,8 @@ int main()
     controller.move(Direction::up);
     std::cout << std::boolalpha << "Is the player dead? " << player.isDead() << '\n';*/
 
-    /*//Level_2
-    Player player;
+    //Level_2
+    /*Player player;
     FieldCreator creator;
     Field field = creator.createLevel_2();
     //field.FieldView();
@@ -170,5 +170,6 @@ int main()
     for (int x = 3; x <= 9; x++) {
         controller.move(Direction::right);
     }
-    std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << '\n';*/
+    std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << '\n';
+    std::cout << "Finish Score: " << player.getScore() << '\n';*/
 }

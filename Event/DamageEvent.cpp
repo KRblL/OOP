@@ -11,8 +11,7 @@ void DamageEvent::activationEvent(Controller& controller)
     Player& player = controller.getPlayer();
     player.setHealth(player.getHealth() - damage);
     std::pair <int, int> cur_cell_coordinates = controller.getCoordinates();
-    Cell& cur_cell = controller.getField().getCell(cur_cell_coordinates.first, cur_cell_coordinates.second);
-    cur_cell = Cell(true, nullptr);
+    controller.getField().getCell(cur_cell_coordinates.first, cur_cell_coordinates.second) = Cell(true, nullptr);
     if (player.isDead())  //check death
         std::cout << "Game over: you're dead!\n";
 }
