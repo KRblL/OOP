@@ -4,7 +4,7 @@
 #include "../Field/Cell.hpp"
 #include "../Field/Field.hpp"
 
-ScoreEvent::ScoreEvent(int bonus):bonus{bonus} {} 
+ScoreEvent::ScoreEvent(int bonus):bonus{bonus >= 0 ? bonus : -bonus} {} 
 
 void ScoreEvent::activationEvent(Controller& controller)
 {
