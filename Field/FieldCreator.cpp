@@ -5,6 +5,20 @@
 #include "../Event/TeleportEvent.hpp"
 #include "../Event/ScoreEvent.hpp"
 
+
+Field FieldCreator::createLevel(int lvl)
+{
+    switch (lvl)
+    {
+        case 1:
+            return createLevel_1();
+        case 2:
+            return createLevel_2();
+        default:
+            throw std::invalid_argument("There is no such level!\n");
+    }
+}
+
 Field FieldCreator::createLevel_1()
 {
     Field field(5, 5);

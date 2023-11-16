@@ -7,10 +7,11 @@ TeleportEvent::TeleportEvent(int x, int y):coordinates{x, y} {}
 
 void TeleportEvent::activationEvent(Controller& controller)
 {
-    if (use_flag == 0) {
+    /*if (use_flag == 0) {
         ++use_flag;
         controller.setCoordinates(coordinates.first, coordinates.second);
-    }
+    }*/
+    controller.setCoordinates(coordinates.first, coordinates.second);
 }
 
 TeleportEvent* TeleportEvent::clone()

@@ -8,12 +8,11 @@ DamageEvent::DamageEvent(int damage):damage{damage >= 0 ? damage : -damage} {}
 
 void DamageEvent::activationEvent(Controller& controller)
 {
-    Player& player = controller.getPlayer();
-    player.setHealth(player.getHealth() - damage);
-    std::pair <int, int> cur_cell_coordinates = controller.getCoordinates();
-    controller.getField().getCell(cur_cell_coordinates.first, cur_cell_coordinates.second) = Cell(true, nullptr);
-    if (player.isDead())  //check death
-        std::cout << "Game over: you're dead!\n";
+    controller.setHealth(controller.getHealth() - damage);
+    //std::pair <int, int> cur_cell_coordinates = controller.getCoordinates();
+   // controller.getField().getCell(cur_cell_coordinates.first, cur_cell_coordinates.second) = Cell(true, nullptr);
+    /*if (player.isDead())  //check death
+        std::cout << "Game over: you're dead!\n";*/
 }
 
 DamageEvent* DamageEvent::clone()

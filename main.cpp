@@ -8,9 +8,26 @@
 #include "Event/ScoreEvent.hpp"
 #include "Event/TeleportEvent.hpp"
 #include "Field/FieldCreator.hpp"
+#include "GameManager/GameManager.hpp"
 
 int main()
 {
+    GameManager game;
+    game.startGame();
+    
+
+
+
+
+    /*Player player;
+    Field field(5, 5);
+    field.getCell(1, 0) = Cell(true, new TeleportEvent(0, 0));
+    Controller controller(player, field);
+    controller.move(Direction::right);
+    std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << '\n';
+    controller.move(Direction::right);
+    std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << '\n';*/
+
     //check DamageEvent
     /*Player player;
     Field field(5, 5);

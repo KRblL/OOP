@@ -46,6 +46,6 @@ IEvent* Cell::getEvent() const
 }
 
 Cell::~Cell()
-{
+{   
     delete event;
 }

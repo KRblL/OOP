@@ -6,6 +6,8 @@
 class FieldCreator
 {
 public:
+    Field createLevel(int lvl);
+
     Field createLevel_1();
     
     Field createLevel_2();

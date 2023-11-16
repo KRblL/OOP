@@ -7,7 +7,7 @@
 class TeleportEvent: public IEvent
 {
     std::pair<int, int> coordinates;
-    int use_flag = 0;
+    //int use_flag = 0;
 public:
     TeleportEvent(int x, int y);
 

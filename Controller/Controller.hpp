@@ -28,9 +28,13 @@ public:
 
     //void changeCoordinates(int delta_x = 0, int delta_y = 0);
 
-    //void changeHealth(int delta_hp = 0);
+    void setHealth(int value = 100);
 
-    //void changeScore(int delta_pts = 0);
+    void setScore(int value = 0);
+
+    int getHealth();
+
+    int getScore();
 };
 
 #endif
