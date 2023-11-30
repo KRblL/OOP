@@ -8,15 +8,15 @@
 char CommandReader::readCommand() 
 {
    // Чтение символа из стандартного ввода
-    char sym;
-    initscr();
-    nocbreak();
-    noecho();
-    timeout(100);
-    sym = getch();
-    cbreak();
-    echo();
-    endwin();
+   char sym;
+   initscr();
+   nocbreak();
+   noecho();
+   timeout(100);
+   sym = getch();
+   cbreak();
+   echo();
+   endwin();
 
    return sym;
 }

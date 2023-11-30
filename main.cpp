@@ -9,11 +9,17 @@
 #include "Event/TeleportEvent.hpp"
 #include "Field/FieldCreator.hpp"
 #include "GameManager/GameManager.hpp"
+#include "Input/CommandReader.hpp"
+#include "View/ConsoleView.hpp"
 
 int main()
 {
-    GameManager game;
+    CommandReader input_reader;
+    ConfigReader conf_reader("../Input/config.txt");
+    GameManager game(input_reader, conf_reader);
+    ConsoleView displayer(game);
     game.startGame();
+    return 0;
     
 
 

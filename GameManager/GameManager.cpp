@@ -3,25 +3,32 @@
 #include "../Player/Player.hpp"
 #include "../Controller/Controller.hpp"
 //#include "../Input/ConfigReader.hpp"
-#include "../Input/CommandReader.hpp"
+#include "../Input/ICommandReader.hpp"
 #include <limits>
+#include <curses.h>
 
+GameManager::GameManager(ICommandReader &inp_reader, ConfigReader &conf_reader)
+    : input_reader{inp_reader}, cmd_dict{conf_reader.readConfig()},
+      controller{player, field} {}
 
 void GameManager::startGame()
 {
-    std::cout << "Welcome to the game!\n";
-    ConfigReader file("../Input/config.txt");
-    cmd_dict = file.readConfig();
+    //std::cout << "Welcome to the game!\n";
+    notifyObserver(ViewState::StartGame);
+    //ConfigReader file("../Input/config.txt");
+    //cmd_dict = file.readConfig();
     /*for (const auto& element : cmd_dict)
         std::cout << element.first << "\t" << element.second << std::endl;*/
     int level;
     while (1) {
-        std::cout << "Please select the level you want to pass: ";
+        notifyObserver(ViewState::ChooseLevel);
+        //std::cout << "Please select the level you want to pass: ";
         std::cin >> level;
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         if (!generationLevel(level))
-            std::cout << "You entered the level incorrectly. Try again: ";
+            notifyObserver(ViewState::IncorrectLevel);
+            //std::cout << "You entered the level incorrectly. Try again: ";
     }
 }
 
@@ -43,24 +50,34 @@ bool GameManager::generationLevel(int lvl)
 
 void GameManager::startLevel(int lvl)   
 {
-    Player player;
-    Field field = FieldCreator().createLevel(lvl);
-    Controller controller(player, field);
+    controller.setHealth();
+    controller.setScore();
+    field = FieldCreator().createLevel(lvl);
+    std::pair<int, int> start_coordinates = field.getEntry();
+    controller.setCoordinates(start_coordinates.first, start_coordinates.second);
+    //std::cout << controller.getCoordinates().first << "\t" << controller.getCoordinates().second << '\n';
+    //Controller controller(player, field);
     //ConfigReader file("../Input/config.txt");
     //std::unordered_map<std::string, char> cmd_dict= file.readConfig();
     
 
     //вызов функции, в которой считываются и выполняются действия
-    gameInProgress(controller);
+    gameInProgress();
+    //char trash;
+    //flushinp();
+    //while (trash != -1) trash = input_reader.readCommand();
 
     while (1) {
-        int status = checkStatus(controller);
+        int status = checkStatus();
         if (status == NORMAL_STATUS)
-            std::cout << "Do you really want to quit the game?\nTo finish the game, enter q\nTo start a new game, enter r\nIf you enter something else, the game will continue\n";
+            notifyObserver(ViewState::Menu);
+            //std::cout << "Do you really want to quit the game?\nTo finish the game, enter q\nTo start a new game, enter r\nIf you enter something else, the game will continue\n";
         else if (status == WIN_STATUS)
-            std::cout << "Congratulations! You have passed the level!\nTo exit the game, enter q\nTo start the game again, enter something else\n";
+            notifyObserver(ViewState::Win);
+            //std::cout << "Congratulations! You have passed the level!\nTo exit the game, enter q\nTo start the game again, enter something else\n";
         else
-            std::cout << "Unfortunately, you lost\nTo exit the game, enter q\nTo start the game again, enter something else\n";
+            notifyObserver(ViewState::Lose);
+            //std::cout << "Unfortunately, you lost\nTo exit the game, enter q\nTo start the game again, enter something else\n";
 
         char decision;
         std::cin >> decision;
@@ -68,7 +85,7 @@ void GameManager::startLevel(int lvl)
             //throw std::runtime_error("Введено больше одного символа");
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            decision = 0;
+            decision = 0;       //game will continue
         }
         switch (decision)
         {
@@ -80,7 +97,7 @@ void GameManager::startLevel(int lvl)
                 break;
             default:
                 if (status == NORMAL_STATUS)
-                    gameInProgress(controller);
+                    gameInProgress();
                 else
                     return;
                 break;
@@ -88,7 +105,7 @@ void GameManager::startLevel(int lvl)
     }
 }
 
-int GameManager::checkStatus(Controller& controller)
+int GameManager::checkStatus()
 {
     if (controller.getPlayer().isDead())
         return LOSE_STATUS;
@@ -97,14 +114,16 @@ int GameManager::checkStatus(Controller& controller)
     return NORMAL_STATUS;
 }
 
-void GameManager::gameInProgress(Controller& controller)
+void GameManager::gameInProgress()
 {
-    CommandReader input;
+    //CommandReader input;
+    flushinp();
     char act;
+    notifyObserver(ViewState::GameProcess);
 
     while (act != cmd_dict["QUIT"])
     {
-        act = input.readCommand();
+        act = input_reader.readCommand();
         //std::cout << "GAME IN PROGRESS\n";
         
         if (act == cmd_dict["UP"]) {
@@ -124,13 +143,33 @@ void GameManager::gameInProgress(Controller& controller)
         }
 
         if (act != -1) {
-            std::cout << act << '\n';
-            std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << '\n';
+            if (checkStatus() != NORMAL_STATUS)
+                return;
+            notifyObserver(ViewState::GameProcess);
+            /*std::cout << act << '\n';
+            std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << '\n';*/
         }
-
-        if (checkStatus(controller) != NORMAL_STATUS) 
-            return;
-
     }
     //act = 0;
+}
+
+Controller& GameManager::getController()
+{
+    return controller;
+}
+
+void GameManager::addObserver(Observer *observer)
+{
+    observers.push_back(observer);
+}
+
+void GameManager::removeObserver(Observer *observer)
+{
+    observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
+}
+
+void GameManager::notifyObserver(ViewState view_state)
+{
+    for (Observer *observer : observers)
+        observer->update(view_state);
 }
