@@ -6,7 +6,7 @@ class Observer
 {
 public:
     virtual void update(ViewState view_state) = 0;
-    virtual ~Observer() {}
+    virtual ~Observer() {};
 };
 
 #endif

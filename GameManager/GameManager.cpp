@@ -5,7 +5,7 @@
 //#include "../Input/ConfigReader.hpp"
 #include "../Input/ICommandReader.hpp"
 #include <limits>
-#include <curses.h>
+//#include <curses.h>
 
 GameManager::GameManager(ICommandReader &inp_reader, ConfigReader &conf_reader)
     : input_reader{inp_reader}, cmd_dict{conf_reader.readConfig()},
@@ -64,8 +64,9 @@ void GameManager::startLevel(int lvl)
     //вызов функции, в которой считываются и выполняются действия
     gameInProgress();
     //char trash;
-    //flushinp();
     //while (trash != -1) trash = input_reader.readCommand();
+    //flushinp();
+    
 
     while (1) {
         int status = checkStatus();
@@ -117,7 +118,7 @@ int GameManager::checkStatus()
 void GameManager::gameInProgress()
 {
     //CommandReader input;
-    flushinp();
+    //flushinp();
     char act;
     notifyObserver(ViewState::GameProcess);
 

@@ -13,6 +13,7 @@ public:
     virtual void displayLose() = 0;
     virtual void displayField() = 0;
     virtual void displayPlayer() = 0;
+    virtual ~IView() {};
 };
 
 #endif

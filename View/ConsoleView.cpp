@@ -64,7 +64,7 @@ void ConsoleView::displayPlayer()
 void ConsoleView::displayField()
 {
     Controller cntrl = game.getController();
-    std::cout << cntrl.getCoordinates().first << "\t" << cntrl.getCoordinates().second << '\n';
+   // std::cout << cntrl.getCoordinates().first << "\t" << cntrl.getCoordinates().second << '\n';
     for (int y = cntrl.getField().getSize().second - 1; y > -1; y--) {
         for (int x = 0; x < cntrl.getField().getSize().first; x++) {
             if (x == cntrl.getCoordinates().first && y == cntrl.getCoordinates().second)

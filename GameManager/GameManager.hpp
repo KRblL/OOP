@@ -34,7 +34,6 @@ public:
     void addObserver(Observer *observer) override;
     void removeObserver(Observer *observer) override;
     void notifyObserver(ViewState view_state) override;
-    
 };
 
 #endif
