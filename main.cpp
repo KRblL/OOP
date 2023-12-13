@@ -19,6 +19,7 @@ int main()
     GameManager game(input_reader, conf_reader);
     ConsoleView displayer(game);
     game.startGame();
+    std::cout << "BYE\n";
     return 0;
     
 

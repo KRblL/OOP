@@ -17,7 +17,7 @@ ConsoleView::~ConsoleView()
 
 void ConsoleView::update()
 {
-    system("clear");
+    //system("clear");
     displayPlayer();
     std::cout << "-------------------\n";
     displayField();
@@ -26,6 +26,16 @@ void ConsoleView::update()
 void ConsoleView::displayStartGame()
 {
     std::cout << "Welcome to the game!\n";
+}
+
+void ConsoleView::displayLoggingSelection()
+{
+    std::cout << "Where do you want to receive logs?\n1 - console\n2 - file\n3 - console and file\n";
+}
+
+void ConsoleView::displayIncorrectLoggingSelection()
+{
+    std::cout << "You entered an incorrect value, try again\n";
 }
 
 void ConsoleView::displayChooseLevel()

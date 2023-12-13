@@ -21,6 +21,8 @@ public:
     void displayLose() override;
     void displayField() override;
     void displayPlayer() override;
+    void displayLoggingSelection() override;
+    void displayIncorrectLoggingSelection() override;
 };
 
 #endif

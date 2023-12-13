@@ -16,6 +16,7 @@ set(GAMEMANAGER GameManager/GameManager.cpp)
 set(CONFIGREADER Input/ConfigReader.cpp)
 set(COMMANDREADER Input/ICommandReader.cpp Input/CommandReader.cpp)
 set(VIEW View/ViewState.cpp View/IView.cpp View/IObservable.cpp View/IObserver.cpp View/GameObserver.cpp View/ConsoleView.cpp)
+set(LOGGING Logging/ILogger.cpp Logging/ConsoleLogger.cpp Logging/FileLogger.cpp Logging/IMessage.cpp Logging/MessageCommandKey.cpp Logging/MessageLose.cpp Logging/MessageNewGame.cpp Logging/MessageUnknownKey.cpp Logging/MessageWin.cpp) 
 
-add_executable(${PROJECT_NAME} main.cpp    ${PLAYER} ${CONTROLLER} ${FIELD} ${EVENT} ${GAMEMANAGER} ${CONFIGREADER} ${COMMANDREADER} ${VIEW})
+add_executable(${PROJECT_NAME} main.cpp ${PLAYER} ${CONTROLLER} ${FIELD} ${EVENT} ${GAMEMANAGER} ${CONFIGREADER} ${COMMANDREADER} ${VIEW} ${LOGGING})
 target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})

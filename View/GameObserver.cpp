@@ -29,5 +29,8 @@ void GameObserver::update(ViewState view_state)
         case ViewState::Lose:
             return view.displayLose();
             break;
+        case ViewState::LoggingSelection:
+            return view.displayLoggingSelection();
+            break;
     }
 }
