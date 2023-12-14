@@ -8,7 +8,7 @@
 #include <set>
 #include <algorithm>
 
-enum class Commands {UP, DOWN, LEFT, RIGHT, RESTART, QUIT, COUNT};
+enum class Commands {UP, DOWN, LEFT, RIGHT, QUIT, COUNT};
 
 class ConfigReader
 {
@@ -16,7 +16,8 @@ class ConfigReader
     bool checkCommand(std::string cmd);
 public:
     ConfigReader(const std::string &filename);
-    std::unordered_map<std::string, char> readConfig();
+    //std::unordered_map<std::string, char> readConfig();
+    std::unordered_map<char, std::string> readConfig();
     ~ConfigReader();
 };
 

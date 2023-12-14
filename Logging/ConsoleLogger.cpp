@@ -3,5 +3,5 @@
 
 void ConsoleLogger::getLog(const Message &message)
 {
-    std::cout << message.getMessage();
+    std::cout << message;
 }

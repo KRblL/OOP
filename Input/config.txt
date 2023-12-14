@@ -1,6 +1,5 @@
-UP=w
-DOWN=s
-RIGHT=d
-LEFT=a
-restart=r
-QUIT=q
+w=UP
+s=DOWN
+d=RIGHT
+a=LEFT
+q=QUIT

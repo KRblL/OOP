@@ -17,7 +17,7 @@ ConsoleView::~ConsoleView()
 
 void ConsoleView::update()
 {
-    //system("clear");
+    system("clear");
     displayPlayer();
     std::cout << "-------------------\n";
     displayField();
@@ -30,7 +30,7 @@ void ConsoleView::displayStartGame()
 
 void ConsoleView::displayLoggingSelection()
 {
-    std::cout << "Where do you want to receive logs?\n1 - console\n2 - file\n3 - console and file\n";
+    std::cout << "Where do you want to receive logs?\n1 - console\n2 - file\n3 - console and file\nsmth else - nowhere\n";
 }
 
 void ConsoleView::displayIncorrectLoggingSelection()

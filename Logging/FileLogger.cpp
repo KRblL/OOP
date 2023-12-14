@@ -8,15 +8,10 @@ FileLogger::FileLogger() : output_file{"../Logging/logs"}
 
 void FileLogger::getLog(const Message &message)
 {
-    std::cout << "HERE\n";
-    output_file << message.getMessage();
+    output_file << message;
 }
 
 FileLogger::~FileLogger()
 {
-    if (output_file.is_open())
-        std::cout << "OPEN\n";
     output_file.close();
-    if (!output_file.is_open())
-        std::cout << "CLOSED\n";
 }

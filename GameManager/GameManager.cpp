@@ -28,7 +28,6 @@ void GameManager::startGame()
     need_logging();
     int level;
     while (status != EXIT_STATUS) {
-        std::cout << status << '\n';
         notifyObserver(ViewState::ChooseLevel);
         //std::cout << "Please select the level you want to pass: ";
         std::cin >> level;
@@ -38,40 +37,37 @@ void GameManager::startGame()
             notifyObserver(ViewState::IncorrectLevel);
             //std::cout << "You entered the level incorrectly. Try again: ";
     }
-    std::cout << status << '\n';
 }
 
 void GameManager::need_logging()
 {
     //std::cout << "Where do you want to receive logs?\n1 - console 2 - file 3 - both\n";
-    int log_opt;
-    while(1) {
-        notifyObserver(ViewState::LoggingSelection);
-        std::cin >> log_opt;
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    char log_opt;
+    notifyObserver(ViewState::LoggingSelection);
+    std::cin >> log_opt;
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        switch(log_opt)
-        {
-            case 1:
-                // add console logger
-                loggers.push_back(new ConsoleLogger);
-                return;
-            case 2:
-                loggers.push_back(new FileLogger);
-                // add file logger
-                return;
-            case 3:
-                // add console and file logger
-                loggers.push_back(new ConsoleLogger);
-                loggers.push_back(new FileLogger);
-                return;
-            default:
-                // repeat input log_opt
-                notifyObserver(ViewState::IncorrectLoggingSelection);
-                break;
-        }
-    } 
+    switch(log_opt)
+    {
+        case '1':
+            // add console logger
+            loggers.push_back(new ConsoleLogger);
+            return;
+        case '2':
+            loggers.push_back(new FileLogger);
+            // add file logger
+            return;
+        case '3':
+            // add console and file logger
+            loggers.push_back(new ConsoleLogger);
+            loggers.push_back(new FileLogger);
+            return;
+        /*default:
+            // repeat input log_opt
+            notifyObserver(ViewState::IncorrectLoggingSelection);
+            break;*/
+        } 
 }
 
 bool GameManager::generationLevel(int lvl)
@@ -99,6 +95,7 @@ void GameManager::startLevel(int lvl)
     std::pair<int, int> start_coordinates = field.getEntry();
     controller.setCoordinates(start_coordinates.first, start_coordinates.second);
     
+    notifyObserver(ViewState::GameProcess);
     sendLog(MessageNewGame(field.getSize(), field.getEntry()));
 
     //вызов функции, в которой считываются и выполняются действия
@@ -137,6 +134,7 @@ void GameManager::startLevel(int lvl)
         {
             case 'q':
                 //exit(0);
+                //sendLog(MessageCommandKey(decision, "QUIT"));
                 status = EXIT_STATUS;
                 return;
                 break;
@@ -145,8 +143,10 @@ void GameManager::startLevel(int lvl)
                 return;
                 break;
             default:
-                if (status == NORMAL_STATUS)
+                if (status == NORMAL_STATUS) {
+                    notifyObserver(ViewState::GameProcess);
                     gameInProgress();
+                }
                 else
                     return;
                 break;
@@ -164,6 +164,41 @@ int GameManager::checkStatus()
 }
 
 void GameManager::gameInProgress()
+{
+    char act;
+    std::string cmd;
+    while(1) {
+        act = input_reader.readCommand();
+        if (act != -1) {
+            if (cmd_dict.contains(act)) {
+                cmd = cmd_dict[act];
+
+                if (cmd == "QUIT") {
+                    sendLog(MessageCommandKey(act, "QUIT"));
+                    return;
+                }
+                else if (cmd == "UP")
+                    controller.move(Direction::up);
+                else if (cmd == "DOWN")
+                    controller.move(Direction::down);
+                else if (cmd == "LEFT")
+                    controller.move(Direction::left);
+                else if (cmd == "RIGHT")
+                    controller.move(Direction::right);
+                
+                notifyObserver(ViewState::GameProcess);
+                sendLog(MessageCommandKey(act, cmd));
+                checkStatus();
+                if (status != NORMAL_STATUS)
+                    return;
+            }
+            else
+                sendLog(MessageUnknownKey(act)); 
+        }
+    }
+}
+
+/*void GameManager::gameInProgress()
 {
     //CommandReader input;
     //flushinp();
@@ -217,8 +252,8 @@ void GameManager::gameInProgress()
             //std::cout << act << '\n';
             //std::cout << controller.getCoordinates().first << '\t' << controller.getCoordinates().second << '\n';
         }*/
-    }
-}
+    //}
+//}
 
 Controller& GameManager::getController()
 {
