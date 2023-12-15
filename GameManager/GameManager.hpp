@@ -26,7 +26,7 @@ class GameManager : public Observable
     std::unordered_map<char, std::string> cmd_dict;
     std::vector<Observer*> observers;
     std::vector<Logger*> loggers;
-    void need_logging();
+    void needLogging();
     int checkStatus();
     int status;
 public:

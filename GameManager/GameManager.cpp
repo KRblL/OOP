@@ -25,7 +25,7 @@ void GameManager::startGame()
 {
     //std::cout << "Welcome to the game!\n";
     notifyObserver(ViewState::StartGame);
-    need_logging();
+    needLogging();
     int level;
     while (status != EXIT_STATUS) {
         notifyObserver(ViewState::ChooseLevel);
@@ -39,7 +39,7 @@ void GameManager::startGame()
     }
 }
 
-void GameManager::need_logging()
+void GameManager::needLogging()
 {
     //std::cout << "Where do you want to receive logs?\n1 - console 2 - file 3 - both\n";
     char log_opt;
